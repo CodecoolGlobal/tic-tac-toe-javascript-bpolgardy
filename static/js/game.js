@@ -82,7 +82,7 @@ const emptyCellsLeft = function () {
 
 
 const checkDiagonalOne = () => {
-    
+
     const cellContent = getcellContent();
     
     if (cellContent[0] && cellContent[4] && cellContent[8]) {
@@ -97,8 +97,11 @@ const checkDiagonalTwo = () => {
     const cell20Content = cells[2].innerText;
     const cell11Content = cells[4].innerText;
     const cell02Content = cells[6].innerText;
-    if (cell20Content && cell11Content && cell02Content) {
-        return (cell20Content === cell11Content && cell11Content === cell02Content);
+
+    const cellContent = getcellContent();
+
+    if (cellContent[2] && cellContent[4] && cellContent[6]) {
+        return (cellContent[2] === cellContent[4] && cellContent[4] === cellContent[6]);
     };
     return false;
 };
