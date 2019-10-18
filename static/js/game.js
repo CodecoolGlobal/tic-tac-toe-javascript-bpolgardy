@@ -4,8 +4,6 @@ function handleClick(event) {
 
 
 function addEventListenerToCells() {
-    const cells = document.querySelectorAll('.game-cell');
-    
     for (cell of cells) {
         cell.addEventListener('click', handleClick);
     };
@@ -37,6 +35,12 @@ function fieldIsTaken() {
 };
 
 
+function getCells () {
+    const cells = document.querySelectorAll('.game-cell');
+    return cells;
+};
+
+
 function game() {
     addEventListenerToCells();
      
@@ -46,7 +50,7 @@ function game() {
         continue;
     };*/
     
-}
+};
 
 addEventListenerToCells();
 
