@@ -11,7 +11,7 @@
     </nav>
     <div id="game-board" class="mb-3" data-row-num="{{ row_num }}" data-col-num="{{ col_num }}" data-win-size="{{ win_size }}">
         {% for row in range(row_num) %}
-            <div>
+            <div data-row="{{ row }}">
                 {% for col in range(col_num) %}
                     <div class="game-cell"
                          data-coordinate-x="{{ col }}"
