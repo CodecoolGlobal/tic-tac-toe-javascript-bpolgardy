@@ -17,7 +17,6 @@ function handleClick(event) {
     
     if (gameCanContinue()) {
         console.log('game can continue');
-        console.log(moreThanTwo());
     } else {
         console.log('game cannot continue');
     };
@@ -27,13 +26,15 @@ function handleClick(event) {
 function handlePlayerTurn() {
     
     if (playerXTurn) {
+        const playerMark = 'x';
         if (!fieldIsTaken()) {
-            event.target.innerText = "x";
+            event.target.innerText = playerMark;
             playerXTurn = false;
         };
     } else {
+        const playerMark ='o';
         if (!fieldIsTaken()) {
-            event.target.innerText = "o";
+            event.target.innerText = playerMark;
             playerXTurn = true;
         };
     };
@@ -72,17 +73,54 @@ const moreThanTwo = () => {
     let countX = 0;
     let countO = 0;
     const cells = getCells();
+
     for (cell of cells) {
         if (cell.innerText === 'x') {
             countX++;
         } else if (cell.innerText === 'o') {
             countO++;
         }
-        };
+    };
+
     if (countX > 2 || countO > 2) {
         return true;
     };
     return false;
+};
+
+
+const threeInARow = (player) => {
+    if (moreThanTwo()) {
+
+    };
+    return false;
+};
+
+
+const countItems = (array, item) => {
+    const counter = 0;
+    for (element of array) {
+        if (element === item) {
+            counter++;
+        };
+    };
+    return counter;
+};
+
+
+const getCoordinatePairsFor = (player) => {
+    const coordinatePairs = [];
+    const cells = getCells();
+    
+    for (cell of cells) {
+        if (cell.innerText === player) {
+            const cellYCoordinate = cell.dataset.coordinateY;
+            const cellXCoordinate = cell.dataset.coordinateX;
+            const coordinates = [Number(cellXCoordinate), Number(cellYCoordinate)];
+            coordinatePairs.push(coordinates);
+        };
+    };
+    console.log(coordinatePairs);
 };
 
 
@@ -91,9 +129,6 @@ const gameCells = getCells();
 addEventListenerTo(gameCells);
 
 let playerXTurn = true; 
-
-/*const cellYCoordinate = event.target.dataset.coordinateY;
-const cellXCoordinate = event.target.dataset.coordinateX;
 
 /*function game() {
     addEventListenerToCells();
@@ -105,3 +140,8 @@ const cellXCoordinate = event.target.dataset.coordinateX;
     };
     
 };*/
+
+/*
+const cellYCoordinate = event.target.dataset.coordinateY;
+const cellXCoordinate = event.target.dataset.coordinateX;
+*/
