@@ -25,7 +25,7 @@ function addEventListenerTo(elements) {
 function handleClick(event) {
     
     handlePlayerTurn();
-    console.log(PlayerWon());
+    console.log(ticTacToe());
 
     /*if (gameCanContinue()) {
         console.log('game can continue');
@@ -81,9 +81,7 @@ const emptyCellsLeft = () => {
 }
 
 
-const checkDiagonalOne = () => {
-
-    const cellContent = getcellContent();
+const checkDiagonalOne = (cellContent) => {
     
     if (cellContent[0] && cellContent[4] && cellContent[8]) {
         return (cellContent[0] === cellContent[4] && cellContent[4] === cellContent[8]);
@@ -92,9 +90,7 @@ const checkDiagonalOne = () => {
 };
 
 
-const checkDiagonalTwo = () => {
-    
-    const cellContent = getcellContent();
+const checkDiagonalTwo = (cellContent) => {
 
     if (cellContent[2] && cellContent[4] && cellContent[6]) {
         return (cellContent[2] === cellContent[4] && cellContent[4] === cellContent[6]);
@@ -103,9 +99,7 @@ const checkDiagonalTwo = () => {
 };
 
 
-const checkRows = () => {
-
-    const cellContent = getcellContent();
+const checkRows = (cellContent) => {
 
     if (cellContent[0] && cellContent[1] && cellContent[2]) {
         if (cellContent[0] === cellContent[1] && cellContent[1] === cellContent[2]) {
@@ -128,10 +122,8 @@ const checkRows = () => {
 };
 
 
-const checkColumns = () => {
+const checkColumns = (cellContent) => {
     
-    const cellContent = getcellContent();
-
     if (cellContent[0] && cellContent[3] && cellContent[6]) {
         if (cellContent[0] === cellContent[3] && cellContent[3] === cellContent[6]) {
             return true;
@@ -153,11 +145,17 @@ const checkColumns = () => {
 };
 
 
-const PlayerWon = () => {
-    if (checkDiagonalOne() || checkDiagonalTwo() || checkRows() || checkColumns()) {
+const ticTacToe = () => {
+    const cellContent = getcellContent();
+
+    if (checkDiagonalOne(cellContent) || 
+        checkDiagonalTwo(cellContent) || 
+        checkRows(cellContent) || 
+        checkColumns(cellContent)) {
         return true;
     }
     return false;
+
 };
 
 
