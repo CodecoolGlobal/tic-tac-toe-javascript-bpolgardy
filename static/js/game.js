@@ -93,11 +93,7 @@ const checkDiagonalOne = () => {
 
 
 const checkDiagonalTwo = () => {
-    const cells = getCells();
-    const cell20Content = cells[2].innerText;
-    const cell11Content = cells[4].innerText;
-    const cell02Content = cells[6].innerText;
-
+    
     const cellContent = getcellContent();
 
     if (cellContent[2] && cellContent[4] && cellContent[6]) {
@@ -108,32 +104,23 @@ const checkDiagonalTwo = () => {
 
 
 const checkRows = () => {
-    const cells = getCells();
 
-    const cell00Content = cells[0].innerText;
-    const cell10Content = cells[1].innerText;
-    const cell20Content = cells[2].innerText;
-    const cell01Content = cells[3].innerText;
-    const cell11Content = cells[4].innerText;
-    const cell21Content = cells[5].innerText;
-    const cell02Content = cells[6].innerText;
-    const cell12Content = cells[7].innerText;
-    const cell22Content = cells[8].innerText;
+    const cellContent = getcellContent();
 
-    if (cell00Content && cell10Content && cell20Content) {
-        if (cell00Content === cell10Content && cell10Content === cell20Content) {
+    if (cellContent[0] && cellContent[1] && cellContent[2]) {
+        if (cellContent[0] === cellContent[1] && cellContent[1] === cellContent[2]) {
             return true;
         };
     };
     
-    if (cell01Content && cell11Content && cell21Content){
-        if (cell01Content === cell11Content && cell11Content === cell21Content) {
+    if (cellContent[3] && cellContent[4] && cellContent[5]){
+        if (cellContent[3] === cellContent[4] && cellContent[4] === cellContent[5]) {
             return true;
         };
     };
 
-    if (cell02Content && cell12Content && cell22Content){
-        if (cell02Content === cell12Content && cell12Content === cell22Content) {
+    if (cellContent[6] && cellContent[7] && cellContent[8]){
+        if (cellContent[6] === cellContent[7] && cellContent[7] === cellContent[8]) {
             return true;
         };
     };
