@@ -25,7 +25,6 @@ function addEventListenerTo(elements) {
 function handleClick(event) {
     
     handlePlayerTurn();
-    getcellContent();
     console.log(PlayerWon());
 
     /*if (gameCanContinue()) {
@@ -83,12 +82,11 @@ const emptyCellsLeft = function () {
 
 
 const checkDiagonalOne = () => {
-    const cells = getCells();
-    const cell00Content = cells[0].innerText;
-    const cell11Content = cells[4].innerText;
-    const cell22Content = cells[8].innerText;
-    if (cell00Content && cell11Content && cell22Content) {
-        return (cell00Content === cell11Content && cell11Content === cell22Content);
+    
+    const cellContent = getcellContent();
+    
+    if (cellContent[0] && cellContent[4] && cellContent[8]) {
+        return (cellContent[0] === cellContent[4] && cellContent[4] === cellContent[8]);
     };
     return false;
 };
