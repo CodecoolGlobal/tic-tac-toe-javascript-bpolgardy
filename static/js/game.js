@@ -29,6 +29,7 @@ function handlePlayerTurn() {
         const playerMark = 'x';
         if (!fieldIsTaken()) {
             event.target.innerText = playerMark;
+            console.log(threeInARow());
             playerXTurn = false;
         };
     } else {
@@ -89,16 +90,30 @@ const moreThanTwo = () => {
 };
 
 
-const threeInARow = (player) => {
-    if (moreThanTwo()) {
+const threeInARow = (player='x') => {
+    const xCoordinates = getXCoordinatesFor(player);
+    const yCoordinates = getYCoordinatesFor(player);
+    console.log(`wtf ${xCoordinates}`);
+    
+    for (let i = 0; i < 3; i++) {
+        xCoordinateCount = countItems(xCoordinates, i);
+        if (xCoordinateCount >= 3) {
+            return true;
+        };
+    };
 
+    for (let i = 0; i < 3; i++) {
+        yCoordinateCount = countItems(yCoordinates, i);
+        if (yCoordinateCount >= 3) {
+            return true;
+        };
     };
     return false;
 };
 
 
 const countItems = (array, item) => {
-    const counter = 0;
+    let counter = 0;
     for (element of array) {
         if (element === item) {
             counter++;
@@ -120,9 +135,36 @@ const getCoordinatePairsFor = (player) => {
             coordinatePairs.push(coordinates);
         };
     };
-    console.log(coordinatePairs);
+    return coordinatePairs;
 };
 
+
+const getXCoordinatesFor = (player='x') => {
+    const xCoordinates = [];
+    const cells = getCells();
+    
+    for (cell of cells) {
+        if (cell.innerText === player) {
+            const cellXCoordinate = cell.dataset.coordinateX;
+            xCoordinates.push(Number(cellXCoordinate));
+        };
+    };
+    return xCoordinates;
+};
+
+
+const getYCoordinatesFor = (player='x') => {
+    const yCoordinates = [];
+    const cells = getCells();
+    
+    for (cell of cells) {
+        if (cell.innerText === player) {
+            const cellYCoordinate = cell.dataset.coordinateY;
+            yCoordinates.push(Number(cellYCoordinate));
+        };
+    };
+    return yCoordinates;
+};
 
 const gameCells = getCells();
 
