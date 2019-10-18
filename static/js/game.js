@@ -29,12 +29,16 @@ function handlePlayerTurn() {
         const playerMark = 'x';
         if (!fieldIsTaken()) {
             event.target.innerText = playerMark;
+            console.log(checkDiagonalOne());
+            console.log(checkDiagonalTwo());
             playerXTurn = false;
         };
     } else {
         const playerMark ='o';
         if (!fieldIsTaken()) {
             event.target.innerText = playerMark;
+            console.log(checkDiagonalOne());
+            console.log(checkDiagonalTwo());
             playerXTurn = true;
         };
     };
@@ -172,6 +176,18 @@ const checkDiagonalOne = () => {
     const cell22Content = cells[8].innerText;
     if (cell00Content && cell11Content && cell22Content) {
         return (cell00Content === cell11Content && cell11Content === cell22Content);
+    };
+    return false;
+};
+
+
+const checkDiagonalTwo = () => {
+    const cells = getCells();
+    const cell20Content = cells[2].innerText;
+    const cell11Content = cells[4].innerText;
+    const cell02Content = cells[6].innerText;
+    if (cell20Content && cell11Content && cell02Content) {
+        return (cell20Content === cell11Content && cell11Content === cell02Content);
     };
     return false;
 };
