@@ -3,9 +3,9 @@ function handleClick(event) {
 } 
 
 
-function addEventListenerToCells() {
-    for (cell of cells) {
-        cell.addEventListener('click', handleClick);
+function addEventListenerTo(elements) {
+    for (element of elements) {
+        element.addEventListener('click', handleClick);
     };
 };
 
@@ -52,7 +52,9 @@ function game() {
     
 };
 
-addEventListenerToCells();
+const gameCells = getCells();
+
+addEventListenerTo(gameCells);
 
 let playerOneTurn = true; 
 
