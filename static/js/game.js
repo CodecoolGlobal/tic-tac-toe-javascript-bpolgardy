@@ -17,6 +17,7 @@ function handleClick(event) {
     
     if (gameCanContinue()) {
         console.log('game can continue');
+        console.log(moreThanTwo());
     } else {
         console.log('game cannot continue');
     };
@@ -25,15 +26,15 @@ function handleClick(event) {
 
 function handlePlayerTurn() {
     
-    if (playerOneTurn) {
+    if (playerXTurn) {
         if (!fieldIsTaken()) {
             event.target.innerText = "x";
-            playerOneTurn = false;
+            playerXTurn = false;
         };
     } else {
         if (!fieldIsTaken()) {
             event.target.innerText = "o";
-            playerOneTurn = true;
+            playerXTurn = true;
         };
     };
 };
@@ -67,24 +68,40 @@ const emptyCellsLeft = function () {
 }
 
 
-function game() {
-    addEventListenerToCells();
-     
-    let playerWon = false;
-    
-    /*while (!playerWon) {
-        continue;
-    };*/
-    
+const moreThanTwo = () => {
+    let countX = 0;
+    let countO = 0;
+    const cells = getCells();
+    for (cell of cells) {
+        if (cell.innerText === 'x') {
+            countX++;
+        } else if (cell.innerText === 'o') {
+            countO++;
+        }
+        };
+    if (countX > 2 || countO > 2) {
+        return true;
+    };
+    return false;
 };
+
 
 const gameCells = getCells();
 
 addEventListenerTo(gameCells);
 
-let playerOneTurn = true; 
+let playerXTurn = true; 
 
 /*const cellYCoordinate = event.target.dataset.coordinateY;
 const cellXCoordinate = event.target.dataset.coordinateX;
-event.target.innerText = "x";
-switchPlayer();*/
+
+/*function game() {
+    addEventListenerToCells();
+        
+    let playerWon = false;
+    
+    while (!playerWon) {
+        continue;
+    };
+    
+};*/
