@@ -15,11 +15,13 @@ function handleClick(event) {
     
     handlePlayerTurn();
     
-    if (gameCanContinue()) {
+    console.log(PlayerWon());
+
+    /*if (gameCanContinue()) {
         console.log('game can continue');
     } else {
         console.log('game cannot continue');
-    };
+    };*/
 };
 
 
@@ -29,16 +31,12 @@ function handlePlayerTurn() {
         const playerMark = 'x';
         if (!fieldIsTaken()) {
             event.target.innerText = playerMark;
-            console.log(checkDiagonalOne());
-            console.log(checkDiagonalTwo());
             playerXTurn = false;
         };
     } else {
         const playerMark ='o';
         if (!fieldIsTaken()) {
             event.target.innerText = playerMark;
-            console.log(checkDiagonalOne());
-            console.log(checkDiagonalTwo());
             playerXTurn = true;
         };
     };
@@ -189,6 +187,14 @@ const checkDiagonalTwo = () => {
     if (cell20Content && cell11Content && cell02Content) {
         return (cell20Content === cell11Content && cell11Content === cell02Content);
     };
+    return false;
+};
+
+
+const PlayerWon = () => {
+    if (checkDiagonalOne() || checkDiagonalTwo() || threeInARow()) {
+        return true;
+    }
     return false;
 };
 
