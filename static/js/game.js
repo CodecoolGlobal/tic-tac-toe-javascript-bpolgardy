@@ -29,7 +29,6 @@ function handlePlayerTurn() {
         const playerMark = 'x';
         if (!fieldIsTaken()) {
             event.target.innerText = playerMark;
-            console.log(threeInARow());
             playerXTurn = false;
         };
     } else {
@@ -51,7 +50,7 @@ function fieldIsTaken() {
 };
 
 
-function gameCanContinue() {
+const gameCanContinue = () => {
     if (!emptyCellsLeft()){
         return false;
     };
@@ -93,7 +92,6 @@ const moreThanTwo = () => {
 const threeInARow = (player='x') => {
     const xCoordinates = getXCoordinatesFor(player);
     const yCoordinates = getYCoordinatesFor(player);
-    console.log(`wtf ${xCoordinates}`);
     
     for (let i = 0; i < 3; i++) {
         xCoordinateCount = countItems(xCoordinates, i);
@@ -165,6 +163,19 @@ const getYCoordinatesFor = (player='x') => {
     };
     return yCoordinates;
 };
+
+
+const checkDiagonalOne = () => {
+    const cells = getCells();
+    const cell00Content = cells[0].innerText;
+    const cell11Content = cells[4].innerText;
+    const cell22Content = cells[8].innerText;
+    if (cell00Content && cell11Content && cell22Content) {
+        return (cell00Content === cell11Content && cell11Content === cell22Content);
+    };
+    return false;
+};
+
 
 const gameCells = getCells();
 
