@@ -12,7 +12,9 @@ function addEventListenerTo(elements) {
 
 
 function handleClick(event) {
+    
     handlePlayerTurn();
+    
     if (gameCanContinue()) {
         console.log('game can continue');
     } else {
@@ -47,7 +49,10 @@ function fieldIsTaken() {
 
 
 function gameCanContinue() {
-    console.log(emptyCellsLeft());
+    if (!emptyCellsLeft()){
+        return false;
+    };
+    return true;
 }
 
 
