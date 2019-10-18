@@ -1,11 +1,22 @@
-function handleClick(event) {
-    handlePlayerTurn();
-} 
+function getCells () {
+    const cells = document.querySelectorAll('.game-cell');
+    return cells;
+};
 
 
 function addEventListenerTo(elements) {
     for (element of elements) {
         element.addEventListener('click', handleClick);
+    };
+};
+
+
+function handleClick(event) {
+    handlePlayerTurn();
+    if (gameCanContinue()) {
+        console.log('game can continue');
+    } else {
+        console.log('game cannot continue');
     };
 };
 
@@ -35,10 +46,20 @@ function fieldIsTaken() {
 };
 
 
-function getCells () {
-    const cells = document.querySelectorAll('.game-cell');
-    return cells;
-};
+function gameCanContinue() {
+    console.log(emptyCellsLeft());
+}
+
+
+const emptyCellsLeft = function () {
+    const cells = getCells();
+    for (cell of cells) {
+        if (!cell.innerText) {
+            return true;
+        }
+    }
+    return false;
+}
 
 
 function game() {
