@@ -3,6 +3,17 @@ function getCells () {
     return cells;
 };
 
+const getcellContent = () => {
+    const cells = getCells();
+    const cellContent = [];
+
+    for (cell of cells) {
+        cellContent.push(cell.innerText);
+    };
+
+    return cellContent;
+};
+
 
 function addEventListenerTo(elements) {
     for (element of elements) {
@@ -14,7 +25,7 @@ function addEventListenerTo(elements) {
 function handleClick(event) {
     
     handlePlayerTurn();
-    
+    getcellContent();
     console.log(PlayerWon());
 
     /*if (gameCanContinue()) {
@@ -71,102 +82,6 @@ const emptyCellsLeft = function () {
 }
 
 
-const moreThanTwo = () => {
-    let countX = 0;
-    let countO = 0;
-    const cells = getCells();
-
-    for (cell of cells) {
-        if (cell.innerText === 'x') {
-            countX++;
-        } else if (cell.innerText === 'o') {
-            countO++;
-        }
-    };
-
-    if (countX > 2 || countO > 2) {
-        return true;
-    };
-    return false;
-};
-
-
-const threeInARow = (player='x') => {
-    const xCoordinates = getXCoordinatesFor(player);
-    const yCoordinates = getYCoordinatesFor(player);
-    
-    for (let i = 0; i < 3; i++) {
-        xCoordinateCount = countItems(xCoordinates, i);
-        if (xCoordinateCount >= 3) {
-            return true;
-        };
-    };
-
-    for (let i = 0; i < 3; i++) {
-        yCoordinateCount = countItems(yCoordinates, i);
-        if (yCoordinateCount >= 3) {
-            return true;
-        };
-    };
-    return false;
-};
-
-
-const countItems = (array, item) => {
-    let counter = 0;
-    for (element of array) {
-        if (element === item) {
-            counter++;
-        };
-    };
-    return counter;
-};
-
-
-const getCoordinatePairsFor = (player) => {
-    const coordinatePairs = [];
-    const cells = getCells();
-    
-    for (cell of cells) {
-        if (cell.innerText === player) {
-            const cellYCoordinate = cell.dataset.coordinateY;
-            const cellXCoordinate = cell.dataset.coordinateX;
-            const coordinates = [Number(cellXCoordinate), Number(cellYCoordinate)];
-            coordinatePairs.push(coordinates);
-        };
-    };
-    return coordinatePairs;
-};
-
-
-const getXCoordinatesFor = (player='x') => {
-    const xCoordinates = [];
-    const cells = getCells();
-    
-    for (cell of cells) {
-        if (cell.innerText === player) {
-            const cellXCoordinate = cell.dataset.coordinateX;
-            xCoordinates.push(Number(cellXCoordinate));
-        };
-    };
-    return xCoordinates;
-};
-
-
-const getYCoordinatesFor = (player='x') => {
-    const yCoordinates = [];
-    const cells = getCells();
-    
-    for (cell of cells) {
-        if (cell.innerText === player) {
-            const cellYCoordinate = cell.dataset.coordinateY;
-            yCoordinates.push(Number(cellYCoordinate));
-        };
-    };
-    return yCoordinates;
-};
-
-
 const checkDiagonalOne = () => {
     const cells = getCells();
     const cell00Content = cells[0].innerText;
@@ -191,8 +106,76 @@ const checkDiagonalTwo = () => {
 };
 
 
+const checkRows = () => {
+    const cells = getCells();
+
+    const cell00Content = cells[0].innerText;
+    const cell10Content = cells[1].innerText;
+    const cell20Content = cells[2].innerText;
+    const cell01Content = cells[3].innerText;
+    const cell11Content = cells[4].innerText;
+    const cell21Content = cells[5].innerText;
+    const cell02Content = cells[6].innerText;
+    const cell12Content = cells[7].innerText;
+    const cell22Content = cells[8].innerText;
+
+    if (cell00Content && cell10Content && cell20Content) {
+        if (cell00Content === cell10Content && cell10Content === cell20Content) {
+            return true;
+        };
+    };
+    
+    if (cell01Content && cell11Content && cell21Content){
+        if (cell01Content === cell11Content && cell11Content === cell21Content) {
+            return true;
+        };
+    };
+
+    if (cell02Content && cell12Content && cell22Content){
+        if (cell02Content === cell12Content && cell12Content === cell22Content) {
+            return true;
+        };
+    };
+    return false;
+};
+
+
+const checkColumns = () => {
+    const cells = getCells();
+
+    const cell00Content = cells[0].innerText;
+    const cell10Content = cells[1].innerText;
+    const cell20Content = cells[2].innerText;
+    const cell01Content = cells[3].innerText;
+    const cell11Content = cells[4].innerText;
+    const cell21Content = cells[5].innerText;
+    const cell02Content = cells[6].innerText;
+    const cell12Content = cells[7].innerText;
+    const cell22Content = cells[8].innerText;
+
+    if (cell00Content && cell01Content && cell02Content) {
+        if (cell00Content === cell01Content && cell01Content === cell02Content) {
+            return true;
+        };
+    };
+    
+    if (cell10Content && cell11Content && cell12Content){
+        if (cell10Content === cell11Content && cell11Content === cell12Content) {
+            return true;
+        };
+    };
+
+    if (cell20Content && cell21Content && cell22Content){
+        if (cell20Content === cell21Content && cell21Content === cell22Content) {
+            return true;
+        };
+    };
+    return false;
+};
+
+
 const PlayerWon = () => {
-    if (checkDiagonalOne() || checkDiagonalTwo() || threeInARow()) {
+    if (checkDiagonalOne() || checkDiagonalTwo() || checkRows() || checkColumns()) {
         return true;
     }
     return false;
