@@ -70,7 +70,7 @@ const gameCanContinue = () => {
 }
 
 
-const emptyCellsLeft = function () {
+const emptyCellsLeft = () => {
     const cells = getCells();
     for (cell of cells) {
         if (!cell.innerText) {
@@ -129,32 +129,23 @@ const checkRows = () => {
 
 
 const checkColumns = () => {
-    const cells = getCells();
+    
+    const cellContent = getcellContent();
 
-    const cell00Content = cells[0].innerText;
-    const cell10Content = cells[1].innerText;
-    const cell20Content = cells[2].innerText;
-    const cell01Content = cells[3].innerText;
-    const cell11Content = cells[4].innerText;
-    const cell21Content = cells[5].innerText;
-    const cell02Content = cells[6].innerText;
-    const cell12Content = cells[7].innerText;
-    const cell22Content = cells[8].innerText;
-
-    if (cell00Content && cell01Content && cell02Content) {
-        if (cell00Content === cell01Content && cell01Content === cell02Content) {
+    if (cellContent[0] && cellContent[3] && cellContent[6]) {
+        if (cellContent[0] === cellContent[3] && cellContent[3] === cellContent[6]) {
             return true;
         };
     };
     
-    if (cell10Content && cell11Content && cell12Content){
-        if (cell10Content === cell11Content && cell11Content === cell12Content) {
+    if (cellContent[1] && cellContent[4] && cellContent[7]){
+        if (cellContent[1] === cellContent[4] && cellContent[4] === cellContent[7]) {
             return true;
         };
     };
 
-    if (cell20Content && cell21Content && cell22Content){
-        if (cell20Content === cell21Content && cell21Content === cell22Content) {
+    if (cellContent[2] && cellContent[5] && cellContent[8]){
+        if (cellContent[2] === cellContent[5] && cellContent[5] === cellContent[8]) {
             return true;
         };
     };
