@@ -1,28 +1,51 @@
-function getCells () {
+const getCells = () => {
     const cells = document.querySelectorAll('.game-cell');
     return cells;
 };
 
+
 const getcellContent = () => {
     const cells = getCells();
     const cellContent = [];
-
+    
     for (cell of cells) {
         cellContent.push(cell.innerText);
     };
-
+    
     return cellContent;
 };
 
 
-function addEventListenerTo(elements) {
+const addEventListenerTo = (elements) => {
     for (element of elements) {
         element.addEventListener('click', handleClick);
     };
 };
 
 
-function handleClick(event) {
+const startingPlayer = () => {
+    sessionStorage.setItem('player', 'x');
+};
+
+
+const getPlayer = () => {
+    const player = sessionStorage.getItem('player');
+
+    return player;
+};
+
+
+const switchPlayer = () => {
+    const player = getPlayer();
+    if (player === 'x') {
+        sessionStorage.setItem('player', 'o');
+    } else if (player === 'o') {
+        sessionStorage.setItem('player', 'x');
+    };
+};
+
+
+const handleClick = (event) => {
     
     handlePlayerTurn();
     console.log(ticTacToe());
@@ -35,25 +58,25 @@ function handleClick(event) {
 };
 
 
-function handlePlayerTurn() {
+const handlePlayerTurn = () => {
     
-    if (playerXTurn) {
-        const playerMark = 'x';
+    const player = getPlayer();
+
+    if (player === 'x') {
         if (!fieldIsTaken()) {
-            event.target.innerText = playerMark;
-            playerXTurn = false;
+            event.target.innerText = player;
+            switchPlayer();
         };
-    } else {
-        const playerMark ='o';
+    } else if (player === 'o') {
         if (!fieldIsTaken()) {
-            event.target.innerText = playerMark;
-            playerXTurn = true;
+            event.target.innerText = player;
+            switchPlayer();
         };
     };
 };
 
 
-function fieldIsTaken() {
+const fieldIsTaken = () => {
     if (event.target.innerText) {
         return true;
     } else {
@@ -159,24 +182,15 @@ const ticTacToe = () => {
 };
 
 
-const gameCells = getCells();
 
-addEventListenerTo(gameCells);
 
-let playerXTurn = true; 
-
-/*function game() {
-    addEventListenerToCells();
-        
-    let playerWon = false;
+const startGame = () => {
+    const gameCells = getCells();
     
-    while (!playerWon) {
-        continue;
-    };
-    
-};*/
+    addEventListenerTo(gameCells);
 
-/*
-const cellYCoordinate = event.target.dataset.coordinateY;
-const cellXCoordinate = event.target.dataset.coordinateX;
-*/
+    startingPlayer();
+};
+
+
+startGame();
