@@ -11,6 +11,7 @@ const getCells = () => {
     return cells;
 };
 
+
 const getSingleElement = (id) => {
     const element = document.querySelector(id);
     return element;
@@ -68,8 +69,8 @@ const switchPlayer = () => {
     };
 };
 
+
 const handleButtonClick = () => {
-    console.log('Try again button clicked!');
     window.location.reload();
 };
 
