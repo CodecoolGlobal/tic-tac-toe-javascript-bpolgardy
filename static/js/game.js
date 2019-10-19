@@ -23,6 +23,13 @@ const addEventListenerTo = (elements) => {
 };
 
 
+const removeEventListenerFrom = (elements) => {
+    for (element of elements) {
+        element.removeEventListener('click', handleClick);
+    };
+};
+
+
 const startingPlayer = () => {
     sessionStorage.setItem('player', 'x');
 };
@@ -187,6 +194,8 @@ const checkWinner = (player) => {
     if (ticTacToe()) {
         setTimeout(function () {
             alert(`Player ${player} wins!`);
+            const gameCells = getCells();
+            removeEventListenerFrom(gameCells);
             },0);
     };
 };
