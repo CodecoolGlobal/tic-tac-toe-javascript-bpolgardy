@@ -1,6 +1,19 @@
+const isIterable = (obj) => {
+    if (obj == null) {
+        return false;
+    };
+    return typeof obj[Symbol.iterator] === 'function';
+};
+
+
 const getCells = () => {
     const cells = document.querySelectorAll('.game-cell');
     return cells;
+};
+
+const getSingleElement = (id) => {
+    const element = document.querySelector(id);
+    return element;
 };
 
 
@@ -16,21 +29,25 @@ const getcellContent = () => {
 };
 
 
-const addEventListenerTo = (elements) => {
-    for (element of elements) {
-        element.addEventListener('click', handleClick);
+const addEventListenerTo = (object, event, callback) => {
+    if (isIterable(object)) {
+        for (element of object) {
+            element.addEventListener(event, callback);
+        };
+    } else {
+        object.addEventListener(event, callback);
     };
 };
 
 
-const removeEventListenerFrom = (elements) => {
-    for (element of elements) {
-        element.removeEventListener('click', handleClick);
+const removeEventListenerFrom = (object, event, callback) => {
+    for (element of object) {
+        element.removeEventListener(event, callback);
     };
 };
 
 
-const startingPlayer = () => {
+const setStartingPlayer = () => {
     sessionStorage.setItem('player', 'x');
 };
 
@@ -51,16 +68,14 @@ const switchPlayer = () => {
     };
 };
 
+const handleButtonClick = () => {
+    console.log('Try again button clicked!');
+    window.location.reload();
+};
 
-const handleClick = (event) => {
-    
+
+const handleCellClick = (event) => {
     handlePlayerTurn();
-
-    /*if (gameCanContinue()) {
-        console.log('game can continue');
-    } else {
-        console.log('game cannot continue');
-    };*/
 };
 
 
@@ -195,7 +210,13 @@ const checkWinner = (player) => {
         setTimeout(function () {
             alert(`Player ${player} wins!`);
             const gameCells = getCells();
-            removeEventListenerFrom(gameCells);
+            removeEventListenerFrom(gameCells, 'click', handleCellClick);
+            },0);
+    } else if (!gameCanContinue()) {
+        setTimeout(function () {
+            alert(`Draw!`);
+            const gameCells = getCells();
+            removeEventListenerFrom(gameCells, 'click', handleCellClick);
             },0);
     };
 };
@@ -203,10 +224,12 @@ const checkWinner = (player) => {
 
 const startGame = () => {
     const gameCells = getCells();
+    const tryAgainButton = getSingleElement('#retry-button');
     
-    addEventListenerTo(gameCells);
+    addEventListenerTo(gameCells, 'click', handleCellClick);
+    addEventListenerTo(tryAgainButton, 'click', handleButtonClick);
 
-    startingPlayer();
+    setStartingPlayer();
 };
 
 
