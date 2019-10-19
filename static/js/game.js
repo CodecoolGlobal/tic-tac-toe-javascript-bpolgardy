@@ -75,7 +75,7 @@ const handleButtonClick = () => {
 };
 
 
-const handleCellClick = (event) => {
+const handleCellClick = () => {
     handlePlayerTurn();
 };
 
