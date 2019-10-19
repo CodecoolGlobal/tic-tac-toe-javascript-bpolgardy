@@ -48,7 +48,6 @@ const switchPlayer = () => {
 const handleClick = (event) => {
     
     handlePlayerTurn();
-    console.log(ticTacToe());
 
     /*if (gameCanContinue()) {
         console.log('game can continue');
@@ -65,11 +64,13 @@ const handlePlayerTurn = () => {
     if (player === 'x') {
         if (!fieldIsTaken()) {
             event.target.innerText = player;
+            checkWinner(player);
             switchPlayer();
         };
     } else if (player === 'o') {
         if (!fieldIsTaken()) {
             event.target.innerText = player;
+            checkWinner(player);
             switchPlayer();
         };
     };
@@ -182,6 +183,13 @@ const ticTacToe = () => {
 };
 
 
+const checkWinner = (player) => {
+    if (ticTacToe()) {
+        setTimeout(function () {
+            alert(`Player ${player} wins!`);
+            },0);
+    };
+};
 
 
 const startGame = () => {
